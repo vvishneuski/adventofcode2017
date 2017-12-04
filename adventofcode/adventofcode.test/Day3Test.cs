@@ -35,6 +35,7 @@ namespace adventofcode.test
             return Day3.GetDistance(number);
         }
 
+        [Ignore("for while")]
         [TestCase(277678, ExpectedResult = 59)]
         public int GetFirstLarger(int number)
         {
