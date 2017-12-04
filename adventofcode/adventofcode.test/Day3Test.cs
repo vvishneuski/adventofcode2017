@@ -39,7 +39,7 @@ namespace adventofcode.test
         [TestCase(277678, ExpectedResult = 59)]
         public int GetFirstLarger(int number)
         {
-            return Day3.GetFIrstLarger(number);
+            return Day3.GetFirstLarger(number);
         }
     }
 }

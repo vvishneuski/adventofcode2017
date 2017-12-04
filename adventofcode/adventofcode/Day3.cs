@@ -10,23 +10,12 @@ namespace adventofcode
 
         public static int GetDistance(int number)
         {
-            switch (number)
-            {
-                case 1:
-                    return 0;
-                case 2:
-                    return 1;
-                default:
-                {
-                    var root = GetRoot(number);
+            var root = GetRoot(number);
 
-                    if (GetBranch(root) == number)
-                        return root - 1;
+            if (GetBranch(root) == number)
+                return root - 1;
 
-                    var toolIndex = number / GetBranch(root);
-                    return Tools[toolIndex](number, root);
-                }
-            }
+            return number < GetBranch(root) ? GetLegDistance(number, root) : GetHandDistance(number, root);
         }
 
         private static int GetLegDistance(int number, int root)
@@ -66,7 +55,7 @@ namespace adventofcode
             return (int) Math.Round(Math.Sqrt(number));
         }
 
-        public static int GetFIrstLarger(int number)
+        public static int GetFirstLarger(int number)
         {
             return number;
         }
