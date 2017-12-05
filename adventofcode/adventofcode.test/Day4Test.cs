@@ -22,16 +22,16 @@ namespace adventofcode.test
         [Test]
         public void HowManyRegularValid()
         {
-            Assert.That(Day4.ValidPassPhraseCount(test, Day4.RegularPhraseValidator), Is.EqualTo(325));
+            Assert.That(Day4.ValidPassPhraseCount(Test, Day4.RegularPhraseValidator), Is.EqualTo(325));
         }
 
         [Test]
         public void HowManyAnagramValid()
         {
-            Assert.That(Day4.ValidPassPhraseCount(test, Day4.AnagramPhraseValidator), Is.EqualTo(119));
+            Assert.That(Day4.ValidPassPhraseCount(Test, Day4.AnagramPhraseValidator), Is.EqualTo(119));
         }
 
-        private const string test = @"nyot babgr babgr kqtu kqtu kzshonp ylyk psqk
+        private const string Test = @"nyot babgr babgr kqtu kqtu kzshonp ylyk psqk
 iix ewj rojvbkk phrij iix zuajnk tadv givslju ewj bda
 isjur jppvano vctnpjp ngwzdq pxqfrk mnxxes zqwgnd giqh
 ojufqke gpd olzirc jfao cjfh rcivvw pqqpudp

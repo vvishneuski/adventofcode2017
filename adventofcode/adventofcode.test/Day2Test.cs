@@ -7,7 +7,7 @@ namespace adventofcode.test
     [TestFixture]
     public class Day2Test
     {
-        private static IEnumerable ParseSpreadsheetTestCases
+        private static IEnumerable TestCases
         {
             get
             {
@@ -24,7 +24,7 @@ namespace adventofcode.test
         }
 
         [Test]
-        [TestCaseSource(typeof(Day2Test), nameof(ParseSpreadsheetTestCases))]
+        [TestCaseSource(typeof(Day2Test), nameof(TestCases))]
         public IEnumerable<IEnumerable<int>> ParseSpreadsheet(string spreadsheet)
         {
             return Day2.ParseSpreadsheet(spreadsheet);
