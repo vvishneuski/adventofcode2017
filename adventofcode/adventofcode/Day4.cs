@@ -8,7 +8,7 @@ namespace adventofcode
     {
         private static IEnumerable<string> GetWords(string phrase)
         {
-            return phrase.Split(new []{" ", "\t"}, StringSplitOptions.RemoveEmptyEntries);
+            return phrase.Split(new[] {" ", "\t"}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public static bool RegularPhraseValidator(string phrase)
@@ -19,7 +19,7 @@ namespace adventofcode
         private static bool NoDuplicates(string phrase, Func<string, string> keySelector)
         {
             return !GetWords(phrase).GroupBy(keySelector)
-                .Any(group => @group.Count() > 1);
+                .Any(group => group.Count() > 1);
         }
 
         public static bool AnagramPhraseValidator(string phrase)
@@ -36,7 +36,7 @@ namespace adventofcode
 
         public static int ValidPassPhraseCount(string test, Func<string, bool> validator)
         {
-            return test.Split(new [] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Count(validator);
+            return test.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).Count(validator);
         }
     }
 }

@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace adventofcode.test
 {
     [TestFixture]
     public class Day6Test
     {
-        [TestCase("0 2 7 0", ExpectedResult = new[] { 0, 2, 7, 0 })]
+        [TestCase("0 2 7 0", ExpectedResult = new[] {0, 2, 7, 0})]
         public int[] ParseBanks(string banks)
         {
             return Day6.ParseBanks(banks);
         }
 
-        [TestCase(new[] { 0, 2, 0, 0 }, 2, 7, ExpectedResult = new[] { 2, 4, 1, 2 })]
+        [TestCase(new[] {0, 2, 0, 0}, 2, 7, ExpectedResult = new[] {2, 4, 1, 2})]
         public int[] Redistribute(int[] banks, int index, int value)
         {
             return Day6.Redistribute(banks, index, value);
         }
 
-        [TestCase(new[] { 0, 2, 7, 0 }, ExpectedResult = new[] { 2, 4, 1, 2 })]
+        [TestCase(new[] {0, 2, 7, 0}, ExpectedResult = new[] {2, 4, 1, 2})]
         public int[] FindAndRedistribute(int[] banks)
         {
             return Day6.FindMaxAndRedistribute(banks);

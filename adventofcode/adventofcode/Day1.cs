@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace adventofcode
@@ -8,7 +7,7 @@ namespace adventofcode
     {
         public static IEnumerable<int> ParseSequence(string sequence)
         {
-            return sequence.Select(c => (int)char.GetNumericValue(c));
+            return sequence.Select(c => (int) char.GetNumericValue(c));
         }
 
         private static LinkedListNode<int> GetNext(LinkedListNode<int> node, int step = 1)

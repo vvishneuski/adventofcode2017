@@ -13,10 +13,13 @@ namespace adventofcode.test
         {
             get
             {
-                yield return new TestCaseData(new[] { 0, 3, 0, 1, -3 }, (Func<int[], int, int>)Day5.GetOffset).Returns(5);
-                yield return new TestCaseData(TestList, (Func<int[], int, int>)Day5.GetOffset).Returns(351282);
-                yield return new TestCaseData(new[] { 0, 3, 0, 1, -3 }, (Func<int[], int, int>)Day5.GetAnotherOffset).Returns(10);
-                yield return new TestCaseData(TestList, (Func<int[], int, int>)Day5.GetAnotherOffset).Returns(24568703);
+                yield return new TestCaseData(new[] {0, 3, 0, 1, -3}, (Func<int[], int, int>) Day5.GetOffset)
+                    .Returns(5);
+                yield return new TestCaseData(TestList, (Func<int[], int, int>) Day5.GetOffset).Returns(351282);
+                yield return new TestCaseData(new[] {0, 3, 0, 1, -3}, (Func<int[], int, int>) Day5.GetAnotherOffset)
+                    .Returns(10);
+                yield return new TestCaseData(TestList, (Func<int[], int, int>) Day5.GetAnotherOffset)
+                    .Returns(24568703);
             }
         }
 

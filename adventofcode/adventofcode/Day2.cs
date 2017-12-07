@@ -9,7 +9,7 @@ namespace adventofcode
         public static IEnumerable<IEnumerable<int>> ParseSpreadsheet(string spreadsheet)
         {
             return spreadsheet.Split(new[] {Environment.NewLine}, StringSplitOptions.None)
-                              .Select(str => str.Split(new[] {" ", "\t"}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
+                .Select(str => str.Split(new[] {" ", "\t"}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
         }
 
         public static int GetCheckSum(string spreadsheet, Func<IEnumerable<int>, int> checkSumFunction)
@@ -36,7 +36,7 @@ namespace adventofcode
             for (var i = 0; i < list.Count; i++)
             {
                 var ii = list[i];
-                for (var j = i+1; j < list.Count; j++)
+                for (var j = i + 1; j < list.Count; j++)
                 {
                     var jj = list[j];
                     if (ii % jj == 0)

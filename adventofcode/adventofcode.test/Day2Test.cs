@@ -14,12 +14,12 @@ namespace adventofcode.test
                 yield return new TestCaseData(@"5 1 9 5
                                                 7 5 3
                                                 2 4 6 8")
-                                    .Returns(new[]
-                                    {
-                                        new[] {5, 1, 9, 5},
-                                        new[] {7, 5, 3},
-                                        new[] {2, 4, 6, 8}
-                                    });
+                    .Returns(new[]
+                    {
+                        new[] {5, 1, 9, 5},
+                        new[] {7, 5, 3},
+                        new[] {2, 4, 6, 8}
+                    });
             }
         }
 
@@ -48,7 +48,8 @@ namespace adventofcode.test
                     1594	222	4140	963	209	2782	180	2591	4390	244	4328	3748	4535	192	157	3817
                     334	275	395	128	347	118	353	281	430	156	312	386	160	194	63	141
                     146	1116	153	815	2212	2070	599	3018	2640	47	125	2292	165	2348	2694	184
-                    1704	2194	1753	146	2063	1668	1280	615	163	190	2269	1856	150	158	2250	2459", ExpectedResult = 30994)]
+                    1704	2194	1753	146	2063	1668	1280	615	163	190	2269	1856	150	158	2250	2459", ExpectedResult =
+            30994)]
         public int GetDifferenceCheckSum(string spreadsheet)
         {
             return Day2.GetCheckSum(spreadsheet, Day2.GetDifference);
