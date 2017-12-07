@@ -55,9 +55,86 @@ namespace adventofcode
             return (int) Math.Round(Math.Sqrt(number));
         }
 
+        public enum Direction
+        {
+            Right,
+            Up,
+            Left,
+            Down
+        }
+
         public static int GetFirstLarger(int number)
         {
-            return number;
+            var matrix = new int[20, 20];
+
+            var x = 10;
+            var y = 10;
+            matrix[x, y] = 1;
+
+            var r = 1;
+            var d = Direction.Right;
+            var s = 0;
+
+            do
+            {
+                s++;
+                switch (d)
+                {
+                    case Direction.Right:
+                        y++;
+                        break;
+                    case Direction.Up:
+                        x--;
+                        break;
+                    case Direction.Left:
+                        y--;
+                        break;
+                    case Direction.Down:
+                        x++;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                if (s == r)
+                {
+                    switch (d)
+                    {
+                        case Direction.Right:
+                            d = Direction.Up;
+                            break;
+                        case Direction.Up:
+                            d = Direction.Left;
+                            r++;
+                            break;
+                        case Direction.Left:
+                            d = Direction.Down;
+                            break;
+                        case Direction.Down:
+                            d = Direction.Right;
+                            r++;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    s = 0;
+                }
+                matrix[x, y] = GetSum(matrix, x, y);
+            } while (matrix[x,y] < number);
+
+            return matrix[x, y];
+        }
+
+        private static int GetSum(int[,] matrix, int x, int y)
+        {
+            var sum = 0;
+            for (int i = x-1; i <= x+1; i++)
+            {
+                for (int j = y - 1; j <= y + 1; j++)
+                {
+                    sum += matrix[i, j];
+                }
+            }
+            return sum;
         }
     }
 }
