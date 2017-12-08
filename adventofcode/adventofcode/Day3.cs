@@ -63,78 +63,114 @@ namespace adventofcode
             Down
         }
 
+        public class State
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public int R { get; set; }
+            public int S { get; set; }
+            public Direction D { get; set; }
+            public int[,] Matrix { get; set; }
+
+            public int Value
+            {
+                get => Matrix[X, Y];
+                set => Matrix[X, Y] = value;
+            }
+
+            public int GetSum()
+            {
+                var sum = 0;
+                for (var i = X - 1; i <= X + 1; i++)
+                {
+                    for (var j = Y - 1; j <= Y + 1; j++)
+                    {
+                        sum += Matrix[i, j];
+                    }
+                }
+                return sum;
+            }
+
+            public void Move()
+            {
+                Movements[D](this);
+            }
+        }
+
+        public static readonly IDictionary<Direction, Action<State>> Movements = new Dictionary<Direction, Action<State>>
+        {
+            {Direction.Right, GoRight},
+            {Direction.Up, GoUp},
+            {Direction.Left, GoLeft},
+            {Direction.Down, GoDown}
+        };
+
         public static int GetFirstLarger(int number)
         {
-            var matrix = new int[20, 20];
-
-            var x = 10;
-            var y = 10;
-            matrix[x, y] = 1;
-
-            var r = 1;
-            var d = Direction.Right;
-            var s = 0;
+            var state = new State
+            {
+                R = 1,
+                S = 0,
+                D = Direction.Right,
+                Matrix = new int[20, 20],
+                X = 10,
+                Y = 10,
+                Value = 1
+            };
 
             do
             {
-                s++;
-                switch (d)
-                {
-                    case Direction.Right:
-                        y++;
-                        break;
-                    case Direction.Up:
-                        x--;
-                        break;
-                    case Direction.Left:
-                        y--;
-                        break;
-                    case Direction.Down:
-                        x++;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-                if (s == r)
-                {
-                    switch (d)
-                    {
-                        case Direction.Right:
-                            d = Direction.Up;
-                            break;
-                        case Direction.Up:
-                            d = Direction.Left;
-                            r++;
-                            break;
-                        case Direction.Left:
-                            d = Direction.Down;
-                            break;
-                        case Direction.Down:
-                            d = Direction.Right;
-                            r++;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    s = 0;
-                }
-                matrix[x, y] = GetSum(matrix, x, y);
-            } while (matrix[x,y] < number);
+                state.Move();
+                state.Value = state.GetSum();
+            } while (state.Value < number);
 
-            return matrix[x, y];
+            return state.Value;
         }
 
-        private static int GetSum(int[,] matrix, int x, int y)
+        private static void GoRight(State state)
         {
-            var sum = 0;
-            for (int i = x-1; i <= x+1; i++)
-            {
-                for (int j = y - 1; j <= y + 1; j++)
-                {
-                    sum += matrix[i, j];
-                }
-            }
-            return sum;
+            state.S++;
+            state.Y++;
+
+            if (state.S != state.R) return;
+
+            state.D = Direction.Up;
+            state.S = 0;
+        }
+
+        private static void GoDown(State state)
+        {
+            state.S++;
+            state.X++;
+
+            if (state.S != state.R) return;
+
+            state.D = Direction.Right;
+            state.S = 0;
+            state.R++;
+        }
+
+        private static void GoLeft(State state)
+        {
+            state.S++;
+            state.Y--;
+
+            if (state.S != state.R) return;
+
+            state.D = Direction.Down;
+            state.S = 0;
+        }
+
+        private static void GoUp(State state)
+        {
+            state.S++;
+            state.X--;
+
+            if (state.S != state.R) return;
+
+            state.D = Direction.Left;
+            state.S = 0;
+            state.R++;
         }
     }
 }
