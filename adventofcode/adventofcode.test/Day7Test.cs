@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using NUnit.Framework;
 
 namespace adventofcode.test
@@ -7,7 +6,7 @@ namespace adventofcode.test
     [TestFixture]
     public class Day7Test
     {
-        private static readonly string example =
+        private const string Example =
 @"
 pbga (66)
 xhth (57)
@@ -22,14 +21,14 @@ jptl (61)
 ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)
-".Trim('\n');
+";
 
         private static IEnumerable TestCases
         {
             get
             {
-                yield return new TestCaseData(example).Returns("tknk");
-                yield return new TestCaseData(test).Returns("vgzejbd");
+                yield return new TestCaseData(Example).Returns("tknk");
+                yield return new TestCaseData(Test).Returns("vgzejbd");
             }
         }
 
@@ -44,8 +43,8 @@ cntj (57)
         {
             get
             {
-                yield return new TestCaseData(example).Returns(60);
-                yield return new TestCaseData(test).Returns(1226);
+                yield return new TestCaseData(Example).Returns(60);
+                yield return new TestCaseData(Test).Returns(1226);
             }
         }
 
@@ -56,7 +55,7 @@ cntj (57)
             return Day7.FindDisbalanceDiscAndGetDifference(programs);
         }
 
-        private static readonly string test =
+        private const string Test =
 @"
 wdysq (135) -> sxldvex, wiasj
 vjwuuft (33) -> inuci, neddz, rwamq
@@ -1288,6 +1287,6 @@ oacnj (93)
 inelfwo (91)
 vgkhk (76)
 cckrzh (6841) -> hdinwud, dqzkic, vrxkr
-".Trim('\n');
+";
     }
 }
