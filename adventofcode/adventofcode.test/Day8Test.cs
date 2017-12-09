@@ -19,7 +19,7 @@ c inc -20 if c == 10
             get
             {
                 yield return new TestCaseData(Example).Returns(1);
-                yield return new TestCaseData(Test).Returns(1);
+                yield return new TestCaseData(Test).Returns(4448);
             }
         }
 
@@ -43,6 +43,21 @@ c inc -20 if c == 10
             return Day8.ProcessInstructions(instructions);
         }
 
+        private static IEnumerable TestCases2
+        {
+            get
+            {
+                yield return new TestCaseData(Example).Returns(10);
+                yield return new TestCaseData(Test).Returns(6582);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(Day8Test), nameof(TestCases2))]
+        public int FindDisbalanceDiscAndGetDifference(string instructions)
+        {
+            return Day8.GetMaxValue(instructions);
+        }
 
         private const string Test =
 @"

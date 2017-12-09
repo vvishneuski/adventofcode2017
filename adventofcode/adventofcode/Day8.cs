@@ -9,7 +9,8 @@ namespace adventofcode
     {
         public static Instruction ParseInstruction(string instruction)
         {
-            var regex = new Regex(@"(?<register>\w+) (?<function>inc|dec) (?<parameter>\d+) if (?<reference>\w+) (?<operator>\S+) (?<value>\d+)");
+            var regex = new Regex(
+                @"(?<register>\w+) (?<function>inc|dec) (?<parameter>\d+|-\d+) if (?<reference>\w+) (?<operator>\S+) (?<value>\d+|-\d+)");
 
             var match = regex.Match(instruction);
 
@@ -34,48 +35,69 @@ namespace adventofcode
             public int Value { get; set; }
         }
 
+        private static IDictionary<string, Func<int, int, bool>> Condition =
+            new Dictionary<string, Func<int, int, bool>>
+            {
+                {"==", (x, y) => x == y},
+                {"!=", (x, y) => x != y},
+                {">", (x, y) => x > y},
+                {">=", (x, y) => x >= y},
+                {"<", (x, y) => x < y},
+                {"<=", (x, y) => x <= y}
+            };
+
+        private static IDictionary<string, Func<int, int, int>> Function =
+            new Dictionary<string, Func<int, int, int>>
+            {
+                {"inc", (x, y) => x + y},
+                {"dec", (x, y) => x - y}
+            };
+
         public static int ProcessInstructions(string _instructions)
         {
-            var instructions = GetInstructionList(_instructions).Select(ParseInstruction).ToList();
+            var instructions = GetInstructions(_instructions);
+            var registers = GetRegisters(instructions);
 
-            var registers = new HashSet<Register>(instructions.Select(GetRegister), Register.NameComparer);
+            foreach (var instruction in instructions)
+            {
+                if (Condition[instruction.Operator](registers[instruction.Reference], instruction.Value))
+                    registers[instruction.Register] = Function[instruction.Function](registers[instruction.Register], instruction.Parameter);
+            }
 
-            return 2;
+            return registers.Max(register => register.Value);
+        }
+
+        private static Dictionary<string, int> GetRegisters(List<Instruction> instructions)
+        {
+            return instructions.GroupBy(instruction => instruction.Register).ToDictionary(group => @group.Key, group => 0);
+        }
+
+        private static List<Instruction> GetInstructions(string _instructions)
+        {
+            return GetInstructionList(_instructions).Select(ParseInstruction).ToList();
         }
 
         private static string[] GetInstructionList(string _instructions)
         {
-            return _instructions.Split(new []{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+            return _instructions.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        private static Register GetRegister(Instruction instruction)
+        public static int GetMaxValue(string _instructions)
         {
-            return new Register{Name = instruction.Register};
-        }
+            var instructions = GetInstructions(_instructions);
+            var registers = GetRegisters(instructions);
 
-        public class Register
-        {
-            private sealed class NameEqualityComparer : IEqualityComparer<Register>
+            int max = 0;
+
+            foreach (var instruction in instructions)
             {
-                public bool Equals(Register x, Register y)
-                {
-                    if (ReferenceEquals(x, y)) return true;
-                    if (ReferenceEquals(x, null)) return false;
-                    if (ReferenceEquals(y, null)) return false;
-                    if (x.GetType() != y.GetType()) return false;
-                    return string.Equals(x.Name, y.Name);
-                }
-
-                public int GetHashCode(Register obj)
-                {
-                    return (obj.Name != null ? obj.Name.GetHashCode() : 0);
-                }
+                if (Condition[instruction.Operator](registers[instruction.Reference], instruction.Value))
+                    registers[instruction.Register] = Function[instruction.Function](registers[instruction.Register], instruction.Parameter);
+                if (max < registers[instruction.Register])
+                    max = registers[instruction.Register];
             }
 
-            public static IEqualityComparer<Register> NameComparer { get; } = new NameEqualityComparer();
-
-            public string Name { get; set; }
-            public int Value { get; set; }
+            return max;
         }
     }
 }
